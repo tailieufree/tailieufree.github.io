@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Tải tài liệu miễn phí</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 520px;
+      background: white;
+      padding: 25px;
+      border-radius: 18px;
+      text-align: center;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.12);
+    }
+
+    h1 {
+      font-size: 25px;
+      margin-bottom: 12px;
+    }
+
+    .description {
+      font-size: 15px;
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 22px;
+    }
+
+    .download-box {
+      width: 100%;
+      padding: 35px 20px;
+      background: #fff3e0;
+      border: 2px dashed #ff9800;
+      border-radius: 16px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .download-box:hover {
+      transform: translateY(-2px);
+    }
+
+    .icon {
+      font-size: 55px;
+      margin-bottom: 10px;
+    }
+
+    .download-title {
+      font-size: 19px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .download-btn {
+      margin-top: 18px;
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 12px;
+      background: #ff5722;
+      color: white;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .download-btn:active {
+      transform: scale(0.98);
+    }
+
+    .note {
+      margin-top: 16px;
+      font-size: 13px;
+      color: #777;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>📚 TẢI TÀI LIỆU MIỄN PHÍ</h1>
+
+  <div class="description">
+    Bấm vào ô hoặc nút bên dưới để tải tài liệu.
+  </div>
+
+  <div class="download-box" onclick="handleDownload()">
+
+    <div class="icon">📖</div>
+
+    <div class="download-title">
+      BẤM VÀO ĐÂY ĐỂ LẤY TÀI LIỆU
+    </div>
+
+  </div>
+
+  <button class="download-btn" onclick="handleDownload()">
+    📥 TẢI TÀI LIỆU
+  </button>
+
+  <div class="note">
+    Nếu một trang mới được mở, hãy quay lại trang này và bấm lại để tiếp tục tải tài liệu.
+  </div>
+
+</div>
+
+
+<script>
+
+const shopeeLink =
+"https://s.shopee.vn/2VqpekcaTm";
+
+const driveLink =
+"https://drive.google.com/file/d/1AYmjFOo8pbSOaEmrJ3z2iylxIok-u7Fw/view?usp=sharing";
+
+
+function handleDownload() {
+
+  let count =
+    parseInt(
+      localStorage.getItem("baitaphoadaicuong2_click")
+    ) || 0;
+
+  count++;
+
+  localStorage.setItem(
+    "baitaphoadaicuong2_click",
+    count
+  );
+
+
+  /*
+    Chu kỳ:
+
+    1 → Shopee
+    2 → Drive
+    3 → Drive
+
+    4 → Shopee
+    5 → Drive
+    6 → Drive
+
+    7 → Shopee
+    ...
+  */
+
+  if ((count - 1) % 3 === 0) {
+
+    window.open(
+      shopeeLink,
+      "_blank"
+    );
+
+  } else {
+
+    window.location.href =
+      driveLink;
+
+  }
+
+}
+
+</script>
+
+</body>
+</html>
