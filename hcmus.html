@@ -1,1293 +1,2125 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Tài Liệu Free - HCMUS</title>
-
-  <style>
-    :root {
-      --hcmus-blue: #173878;
-      --hcmus-blue-2: #2451a4;
-      --hcmus-light: #eef4ff;
-      --white: #ffffff;
-      --text: #17315f;
-      --muted: #6c7892;
-      --border: #dbe5f4;
-      --background: #f6f9ff;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      min-height: 100vh;
-      font-family: Arial, Helvetica, sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(
-          circle at top left,
-          rgba(36, 81, 164, 0.12),
-          transparent 30%
-        ),
-        linear-gradient(
-          180deg,
-          #ffffff 0%,
-          var(--background) 100%
-        );
-    }
-
-    .container {
-      width: min(1100px, 92%);
-      margin: auto;
-      padding: 28px 0 50px;
-    }
-
-    /* HEADER */
-
-    .hero {
-      position: relative;
-      overflow: hidden;
-      padding: 38px 34px;
-      border-radius: 28px;
-      color: white;
-
-      background:
-        linear-gradient(
-          135deg,
-          #12316c 0%,
-          #1e438a 55%,
-          #2a59af 100%
-        );
-
-      box-shadow:
-        0 18px 45px rgba(23, 56, 120, 0.22);
-    }
-
-    .hero::before {
-      content: "";
-      position: absolute;
-      width: 280px;
-      height: 280px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.07);
-      right: -100px;
-      top: -110px;
-    }
-
-    .hero::after {
-      content: "";
-      position: absolute;
-      width: 180px;
-      height: 180px;
-      border-radius: 50%;
-      border: 35px solid rgba(255,255,255,0.04);
-      right: 70px;
-      bottom: -120px;
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 2;
-    }
-
-    .brand {
-      display: inline-block;
-      margin-bottom: 12px;
-      font-size: 13px;
-      font-weight: bold;
-      letter-spacing: 2.5px;
-      color: #dce8ff;
-    }
-
-    .hero h1 {
-      margin-bottom: 10px;
-      font-size: clamp(40px, 7vw, 62px);
-      line-height: 1;
-    }
-
-    .hero h2 {
-      margin-bottom: 13px;
-      font-size: clamp(18px, 3vw, 25px);
-      font-weight: 600;
-      color: #e5edff;
-    }
-
-    .hero p {
-      max-width: 700px;
-      font-size: 15px;
-      line-height: 1.7;
-      color: rgba(255,255,255,0.91);
-    }
-
-    /* SEARCH */
-
-    .search-area {
-      margin-top: 24px;
-    }
-
-    .search-box {
-      position: relative;
-    }
-
-    .search-icon {
-      position: absolute;
-      left: 17px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 18px;
-    }
-
-    .search-box input {
-      width: 100%;
-      padding: 16px 18px 16px 48px;
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      outline: none;
-      background: white;
-      color: var(--text);
-      font-size: 15px;
-
-      box-shadow:
-        0 8px 24px rgba(23,56,120,0.07);
-
-      transition: 0.2s;
-    }
-
-    .search-box input:focus {
-      border-color: var(--hcmus-blue-2);
-      box-shadow:
-        0 8px 25px rgba(23,56,120,0.12);
-    }
-
-    /* SECTION TITLE */
-
-    .section-title {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 15px;
-      margin: 30px 2px 16px;
-    }
-
-    .section-title h3 {
-      color: var(--hcmus-blue);
-      font-size: 25px;
-    }
-
-    .section-title p {
-      margin-top: 5px;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .subject-count {
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    /* SUBJECT GRID */
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .subject-card {
-      min-height: 190px;
-      padding: 22px;
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      background: rgba(255,255,255,0.96);
-      cursor: pointer;
-
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-
-      box-shadow:
-        0 10px 28px rgba(23,56,120,0.07);
-
-      transition:
-        transform 0.22s ease,
-        box-shadow 0.22s ease,
-        border-color 0.22s ease;
-    }
-
-    .subject-card:hover {
-      transform: translateY(-5px);
-      border-color: #b8c9ea;
-      box-shadow:
-        0 17px 36px rgba(23,56,120,0.14);
-    }
-
-    .subject-icon {
-      width: 58px;
-      height: 58px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      border-radius: 16px;
-      margin-bottom: 18px;
-      background: var(--hcmus-light);
-      font-size: 29px;
-    }
-
-    .subject-card h4 {
-      margin-bottom: 8px;
-      color: var(--hcmus-blue);
-      font-size: 20px;
-    }
-
-    .subject-card p {
-      font-size: 14px;
-      line-height: 1.55;
-      color: var(--muted);
-    }
-
-    .view-link {
-      margin-top: 18px;
-      font-size: 14px;
-      font-weight: bold;
-      color: var(--hcmus-blue-2);
-    }
-
-    /* DOCUMENT PANEL */
-
-    .documents-panel {
-      display: none;
-      margin-top: 27px;
-      padding: 24px;
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      background: white;
-
-      box-shadow:
-        0 14px 38px rgba(23,56,120,0.09);
-    }
-
-    .documents-panel.active {
-      display: block;
-    }
-
-    .panel-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 15px;
-      margin-bottom: 18px;
-    }
-
-    .panel-header h3 {
-      color: var(--hcmus-blue);
-      font-size: 24px;
-    }
-
-    .back-button {
-      border: none;
-      padding: 11px 15px;
-      border-radius: 11px;
-      background: var(--hcmus-light);
-      color: var(--hcmus-blue);
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    .back-button:hover {
-      background: #dfe9ff;
-    }
-
-    /* DOCUMENT ITEMS */
-
-    .document-list {
-      display: grid;
-      gap: 13px;
-    }
-
-    .document-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 18px;
-
-      padding: 16px 17px;
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      background: #ffffff;
-      transition: 0.2s;
-    }
-
-    .document-item:hover {
-      border-color: #c1d0eb;
-      background: #fbfdff;
-    }
-
-    .document-info h5 {
-      margin-bottom: 5px;
-      color: var(--hcmus-blue);
-      font-size: 16px;
-    }
-
-    .document-info p {
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.5;
-    }
-
-    .document-button {
-      display: inline-block;
-      min-width: 125px;
-      padding: 11px 15px;
-      text-align: center;
-      text-decoration: none;
-      border-radius: 11px;
-
-      background: var(--hcmus-blue);
-      color: white;
-
-      font-size: 13px;
-      font-weight: bold;
-      transition: 0.2s;
-      white-space: nowrap;
-    }
-
-    .document-button:hover {
-      background: var(--hcmus-blue-2);
-      transform: translateY(-1px);
-    }
-
-    .document-button.disabled {
-      background: #aab5ca;
-      cursor: default;
-      pointer-events: none;
-    }
-
-    /* NO RESULT */
-
-    .no-result {
-      display: none;
-      margin-top: 15px;
-      padding: 30px;
-      text-align: center;
-      border: 1px dashed var(--border);
-      border-radius: 18px;
-      color: var(--muted);
-      background: white;
-    }
-
-    /* FOOTER */
-
-    footer {
-      margin-top: 40px;
-      padding-top: 20px;
-      border-top: 1px solid var(--border);
-      text-align: center;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.7;
-    }
-
-    footer strong {
-      color: var(--hcmus-blue);
-    }
-
-    /* MOBILE */
-
-    @media (max-width: 850px) {
-      .grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 580px) {
-
-      .container {
-        width: 94%;
-        padding-top: 15px;
-      }
-
-      .hero {
-        padding: 29px 22px;
-        border-radius: 23px;
-      }
-
-      .hero h1 {
-        font-size: 42px;
-      }
-
-      .hero h2 {
-        font-size: 18px;
-      }
-
-      .section-title {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-
-      .grid {
-        grid-template-columns: 1fr;
-      }
-
-      .subject-card {
-        min-height: 160px;
-      }
-
-      .documents-panel {
-        padding: 18px;
-      }
-
-      .panel-header {
-        align-items: flex-start;
-      }
-
-      .document-item {
-        align-items: stretch;
-        flex-direction: column;
-      }
-
-      .document-button {
-        width: 100%;
-      }
-
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Tài Liệu Free - HCMUS</title>
+
+<style>
+:root{
+  --blue:#173878;
+  --blue2:#2451a4;
+  --light:#eef4ff;
+  --text:#17315f;
+  --muted:#6c7892;
+  --border:#dbe5f4;
+  --bg:#f6f9ff;
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  min-height:100vh;
+  font-family:Arial,Helvetica,sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(circle at top left,rgba(36,81,164,.12),transparent 30%),
+    linear-gradient(180deg,#fff 0%,var(--bg) 100%);
+}
+
+button,
+input{
+  font:inherit;
+}
+
+.container{
+  width:min(1100px,92%);
+  margin:auto;
+  padding:28px 0 50px;
+}
+
+/* =====================
+   HEADER
+===================== */
+
+.hero{
+  position:relative;
+  overflow:hidden;
+  padding:38px 34px;
+  border-radius:28px;
+  color:#fff;
+  background:linear-gradient(135deg,#12316c 0%,#1e438a 55%,#2a59af 100%);
+  box-shadow:0 18px 45px rgba(23,56,120,.22);
+}
+
+.hero::before{
+  content:"";
+  position:absolute;
+  width:280px;
+  height:280px;
+  border-radius:50%;
+  background:rgba(255,255,255,.07);
+  right:-100px;
+  top:-110px;
+}
+
+.hero::after{
+  content:"";
+  position:absolute;
+  width:180px;
+  height:180px;
+  border-radius:50%;
+  border:35px solid rgba(255,255,255,.04);
+  right:70px;
+  bottom:-120px;
+}
+
+.hero-content{
+  position:relative;
+  z-index:2;
+}
+
+.brand{
+  display:inline-block;
+  margin-bottom:12px;
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:2.5px;
+  color:#dce8ff;
+}
+
+.hero h1{
+  margin-bottom:10px;
+  font-size:clamp(40px,7vw,62px);
+  line-height:1;
+}
+
+.hero h2{
+  margin-bottom:13px;
+  font-size:clamp(18px,3vw,25px);
+  color:#e5edff;
+}
+
+.hero p{
+  max-width:700px;
+  font-size:15px;
+  line-height:1.7;
+  color:rgba(255,255,255,.91);
+}
+
+/* =====================
+   SEARCH
+===================== */
+
+.search-area{
+  position:relative;
+  margin-top:24px;
+  z-index:20;
+}
+
+.search-box{
+  position:relative;
+}
+
+.search-icon{
+  position:absolute;
+  left:17px;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:18px;
+}
+
+.search-box input{
+  width:100%;
+  padding:16px 18px 16px 48px;
+  border:1px solid var(--border);
+  border-radius:16px;
+  outline:none;
+  background:#fff;
+  color:var(--text);
+  font-size:15px;
+  box-shadow:0 8px 24px rgba(23,56,120,.07);
+}
+
+.search-box input:focus{
+  border-color:var(--blue2);
+}
+
+/* KẾT QUẢ TÌM KIẾM */
+
+.search-results{
+  display:none;
+  position:absolute;
+  top:calc(100% + 8px);
+  left:0;
+  right:0;
+  max-height:430px;
+  overflow:auto;
+  padding:8px;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:17px;
+  box-shadow:0 16px 42px rgba(23,56,120,.18);
+}
+
+.search-results.active{
+  display:block;
+}
+
+.search-result{
+  width:100%;
+  display:flex;
+  align-items:center;
+  gap:13px;
+  padding:13px;
+  border:0;
+  border-radius:13px;
+  background:#fff;
+  text-align:left;
+  cursor:pointer;
+}
+
+.search-result:hover{
+  background:var(--light);
+}
+
+.result-icon{
+  width:42px;
+  height:42px;
+  flex:0 0 42px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  border-radius:12px;
+  background:var(--light);
+  font-size:20px;
+}
+
+.result-text strong{
+  display:block;
+  color:var(--blue);
+  font-size:14px;
+  line-height:1.4;
+}
+
+.result-text small{
+  display:block;
+  margin-top:3px;
+  color:var(--muted);
+  line-height:1.4;
+}
+
+.search-empty{
+  padding:20px;
+  text-align:center;
+  color:var(--muted);
+  font-size:14px;
+}
+
+/* =====================
+   MAIN GRID
+===================== */
+
+.section-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  gap:15px;
+  margin:30px 2px 16px;
+}
+
+.section-title h3{
+  color:var(--blue);
+  font-size:25px;
+}
+
+.section-title p{
+  margin-top:5px;
+  color:var(--muted);
+  font-size:14px;
+}
+
+.subject-count{
+  color:var(--muted);
+  font-size:13px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
+
+.subject-card{
+  min-height:190px;
+  padding:22px;
+  border:1px solid var(--border);
+  border-radius:22px;
+  background:rgba(255,255,255,.97);
+  cursor:pointer;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  box-shadow:0 10px 28px rgba(23,56,120,.07);
+  transition:.22s;
+}
+
+.subject-card:hover{
+  transform:translateY(-5px);
+  border-color:#b8c9ea;
+  box-shadow:0 17px 36px rgba(23,56,120,.14);
+}
+
+.subject-icon{
+  width:58px;
+  height:58px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:16px;
+  margin-bottom:18px;
+  background:var(--light);
+  font-size:29px;
+}
+
+.subject-card h4{
+  margin-bottom:8px;
+  color:var(--blue);
+  font-size:20px;
+}
+
+.subject-card p{
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.55;
+}
+
+.view-link{
+  margin-top:18px;
+  color:var(--blue2);
+  font-size:14px;
+  font-weight:700;
+}
+
+/* =====================
+   PANEL
+===================== */
+
+.documents-panel{
+  display:none;
+  margin-top:27px;
+  padding:24px;
+  border:1px solid var(--border);
+  border-radius:24px;
+  background:#fff;
+  box-shadow:0 14px 38px rgba(23,56,120,.09);
+}
+
+.documents-panel.active{
+  display:block;
+}
+
+.panel-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  margin-bottom:18px;
+}
+
+.panel-header h3{
+  color:var(--blue);
+  font-size:24px;
+  line-height:1.35;
+}
+
+.back-button{
+  flex:0 0 auto;
+  border:0;
+  padding:11px 15px;
+  border-radius:11px;
+  background:var(--light);
+  color:var(--blue);
+  font-weight:700;
+  cursor:pointer;
+}
+
+.document-list{
+  display:grid;
+  gap:13px;
+}
+
+.document-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:18px;
+  padding:16px 17px;
+  border:1px solid var(--border);
+  border-radius:16px;
+  background:#fff;
+  transition:.2s;
+}
+
+.document-item:hover{
+  border-color:#c1d0eb;
+  background:#fbfdff;
+}
+
+.document-info h5{
+  margin-bottom:5px;
+  color:var(--blue);
+  font-size:16px;
+  line-height:1.45;
+}
+
+.document-info p{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.5;
+}
+
+.document-button{
+  min-width:135px;
+  padding:11px 15px;
+  border:0;
+  border-radius:11px;
+  background:var(--blue);
+  color:#fff;
+  text-align:center;
+  text-decoration:none;
+  font-size:13px;
+  font-weight:700;
+  white-space:nowrap;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.document-button:hover{
+  background:var(--blue2);
+  transform:translateY(-1px);
+}
+
+.document-button.disabled{
+  background:#aab5ca;
+  pointer-events:none;
+}
+
+/* 2 BUTTONS ĐỀ THI */
+
+.exam-buttons{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+
+.exam-buttons .document-button{
+  min-width:auto;
+}
+
+/* =====================
+   FOOTER
+===================== */
+
+footer{
+  margin-top:40px;
+  padding-top:20px;
+  border-top:1px solid var(--border);
+  text-align:center;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.7;
+}
+
+footer strong{
+  color:var(--blue);
+}
+
+/* =====================
+   MOBILE
+===================== */
+
+@media(max-width:850px){
+  .grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media(max-width:580px){
+
+  .container{
+    width:94%;
+    padding-top:15px;
+  }
+
+  .hero{
+    padding:29px 22px;
+    border-radius:23px;
+  }
+
+  .hero h1{
+    font-size:42px;
+  }
+
+  .section-title{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .subject-card{
+    min-height:160px;
+  }
+
+  .documents-panel{
+    padding:18px;
+  }
+
+  .panel-header{
+    align-items:flex-start;
+  }
+
+  .document-item{
+    align-items:stretch;
+    flex-direction:column;
+  }
+
+  .document-button{
+    width:100%;
+  }
+
+  .exam-buttons{
+    width:100%;
+    flex-direction:column;
+  }
+
+  .exam-buttons .document-button{
+    width:100%;
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <main class="container">
+<main class="container">
 
-    <!-- HEADER -->
+  <!-- HEADER -->
 
-    <section class="hero">
+  <section class="hero">
+    <div class="hero-content">
 
-      <div class="hero-content">
-
-        <div class="brand">
-          TÀI LIỆU FREE
-        </div>
-
-        <h1>
-          HCMUS
-        </h1>
-
-        <h2>
-          Trường Đại học Khoa học Tự nhiên
-        </h2>
-
-        <p>
-          Kho tài liệu học tập miễn phí dành cho sinh viên HCMUS.
-          Chọn môn học bên dưới để xem giáo trình, bài tập,
-          đề thi và các tài liệu tham khảo.
-        </p>
-
+      <div class="brand">
+        TÀI LIỆU FREE
       </div>
 
-    </section>
+      <h1>HCMUS</h1>
 
-    <!-- SEARCH -->
+      <h2>
+        Trường Đại học Khoa học Tự nhiên
+      </h2>
 
-    <section class="search-area">
-
-      <div class="search-box">
-
-        <span class="search-icon">
-          🔎
-        </span>
-
-        <input
-          id="searchInput"
-          type="text"
-          placeholder="Tìm môn học..."
-        >
-
-      </div>
-
-    </section>
-
-    <!-- SECTION TITLE -->
-
-    <div class="section-title">
-
-      <div>
-
-        <h3>
-          Danh mục môn học
-        </h3>
-
-        <p>
-          Chọn môn để xem tài liệu
-        </p>
-
-      </div>
-
-      <div class="subject-count">
-        6 môn học
-      </div>
+      <p>
+        Kho tài liệu học tập miễn phí dành cho sinh viên HCMUS.
+        Tìm kiếm hoặc chọn môn học bên dưới để xem giáo trình,
+        bài tập, đề thi và tài liệu tham khảo.
+      </p>
 
     </div>
+  </section>
 
-    <!-- SUBJECT GRID -->
 
-    <section
-      class="grid"
-      id="subjectGrid"
-    >
+  <!-- SEARCH -->
 
-      <!-- HÓA HỌC -->
+  <section class="search-area">
 
-      <article
-        class="subject-card"
-        data-name="hóa học hoa hoc hóa đại cương hoa dai cuong"
-        onclick="showDocuments('hoa')"
+    <div class="search-box">
+
+      <span class="search-icon">
+        🔎
+      </span>
+
+      <input
+        id="searchInput"
+        type="text"
+        autocomplete="off"
+        placeholder="Tìm Hóa đại cương, giáo trình, bài tập, đề thi..."
       >
 
-        <div>
-
-          <div class="subject-icon">
-            🧪
-          </div>
-
-          <h4>
-            Hóa học
-          </h4>
-
-          <p>
-            Giáo trình, bài tập,
-            tài liệu ôn giữa kì và cuối kì.
-          </p>
-
-        </div>
-
-        <div class="view-link">
-          Xem tài liệu →
-        </div>
-
-      </article>
-
-      <!-- VẬT LÝ -->
-
-      <article
-        class="subject-card"
-        data-name="vật lý vat ly vật lý đại cương vat ly dai cuong"
-        onclick="showDocuments('vatly')"
-      >
-
-        <div>
-
-          <div class="subject-icon">
-            ⚛️
-          </div>
-
-          <h4>
-            Vật lý
-          </h4>
-
-          <p>
-            Giáo trình Vật lý đại cương,
-            bài tập và đề thi.
-          </p>
-
-        </div>
-
-        <div class="view-link">
-          Xem tài liệu →
-        </div>
-
-      </article>
-
-      <!-- SINH HỌC -->
-
-      <article
-        class="subject-card"
-        data-name="sinh học sinh hoc sinh học đại cương sinh hoc dai cuong"
-        onclick="showDocuments('sinh')"
-      >
-
-        <div>
-
-          <div class="subject-icon">
-            🧬
-          </div>
-
-          <h4>
-            Sinh học
-          </h4>
-
-          <p>
-            Giáo trình,
-            bài giảng và tài liệu Sinh học.
-          </p>
-
-        </div>
-
-        <div class="view-link">
-          Xem tài liệu →
-        </div>
-
-      </article>
-
-      <!-- TOÁN CAO CẤP -->
-
-      <article
-        class="subject-card"
-        data-name="toán cao cấp toan cao cap"
-        onclick="showDocuments('toan')"
-      >
-
-        <div>
-
-          <div class="subject-icon">
-            📐
-          </div>
-
-          <h4>
-            Toán cao cấp
-          </h4>
-
-          <p>
-            Lý thuyết,
-            công thức, bài tập và đề thi.
-          </p>
-
-        </div>
-
-        <div class="view-link">
-          Xem tài liệu →
-        </div>
-
-      </article>
-
-      <!-- VI TÍCH PHÂN -->
-
-      <article
-        class="subject-card"
-        data-name="vi tích phân vi tich phan calculus"
-        onclick="showDocuments('vitich')"
-      >
-
-        <div>
-
-          <div class="subject-icon">
-            ∫
-          </div>
-
-          <h4>
-            Vi tích phân
-          </h4>
-
-          <p>
-            Đạo hàm,
-            tích phân, chuỗi
-            và bài tập tổng hợp.
-          </p>
-
-        </div>
-
-        <div class="view-link">
-          Xem tài liệu →
-        </div>
-
-      </article>
-
-      <!-- TIẾNG ANH -->
-
-      <article
-        class="subject-card"
-        data-name="tiếng anh đầu vào tieng anh dau vao english"
-        onclick="showDocuments('anh')"
-      >
-
-        <div>
-
-          <div class="subject-icon">
-            🇬🇧
-          </div>
-
-          <h4>
-            Tiếng Anh đầu vào
-          </h4>
-
-          <p>
-            Đề tham khảo,
-            từ vựng, ngữ pháp
-            và tài liệu ôn tập.
-          </p>
-
-        </div>
-
-        <div class="view-link">
-          Xem tài liệu →
-        </div>
-
-      </article>
-
-    </section>
-
-    <!-- KHÔNG TÌM THẤY -->
+    </div>
 
     <div
-      class="no-result"
-      id="noResult"
-    >
-      Không tìm thấy môn học phù hợp.
+      id="searchResults"
+      class="search-results"
+    ></div>
+
+  </section>
+
+
+  <!-- TITLE -->
+
+  <div class="section-title">
+
+    <div>
+      <h3>Danh mục môn học</h3>
+      <p>Chọn môn để xem tài liệu</p>
     </div>
 
-    <!-- DOCUMENT PANEL -->
+    <div class="subject-count">
+      6 môn học
+    </div>
 
-    <section
-      class="documents-panel"
-      id="documentsPanel"
+  </div>
+
+
+  <!-- SUBJECTS -->
+
+  <section class="grid" id="subjectGrid">
+
+    <article
+      class="subject-card"
+      onclick="openChemistry()"
     >
-
-      <div class="panel-header">
-
-        <h3 id="documentTitle">
-          Tài liệu
-        </h3>
-
-        <button
-          class="back-button"
-          onclick="closeDocuments()"
-        >
-          ← Quay lại
-        </button>
-
+      <div>
+        <div class="subject-icon">🧪</div>
+        <h4>Hóa học</h4>
+        <p>
+          Hóa đại cương 1, 2, 3,
+          giáo trình, bài tập và đề thi.
+        </p>
       </div>
 
-      <div
-        class="document-list"
-        id="documentList"
+      <div class="view-link">
+        Xem tài liệu →
+      </div>
+    </article>
+
+
+    <article
+      class="subject-card"
+      onclick="openComingSoon('Vật lý')"
+    >
+      <div>
+        <div class="subject-icon">⚛️</div>
+        <h4>Vật lý</h4>
+        <p>
+          Giáo trình, bài tập
+          và tài liệu Vật lý.
+        </p>
+      </div>
+
+      <div class="view-link">
+        Xem tài liệu →
+      </div>
+    </article>
+
+
+    <article
+      class="subject-card"
+      onclick="openComingSoon('Sinh học')"
+    >
+      <div>
+        <div class="subject-icon">🧬</div>
+        <h4>Sinh học</h4>
+        <p>
+          Giáo trình, bài giảng
+          và tài liệu Sinh học.
+        </p>
+      </div>
+
+      <div class="view-link">
+        Xem tài liệu →
+      </div>
+    </article>
+
+
+    <article
+      class="subject-card"
+      onclick="openComingSoon('Toán cao cấp')"
+    >
+      <div>
+        <div class="subject-icon">📐</div>
+        <h4>Toán cao cấp</h4>
+        <p>
+          Lý thuyết, công thức,
+          bài tập và đề thi.
+        </p>
+      </div>
+
+      <div class="view-link">
+        Xem tài liệu →
+      </div>
+    </article>
+
+
+    <article
+      class="subject-card"
+      onclick="openComingSoon('Vi tích phân')"
+    >
+      <div>
+        <div class="subject-icon">∫</div>
+        <h4>Vi tích phân</h4>
+        <p>
+          Đạo hàm, tích phân,
+          chuỗi và bài tập.
+        </p>
+      </div>
+
+      <div class="view-link">
+        Xem tài liệu →
+      </div>
+    </article>
+
+
+    <article
+      class="subject-card"
+      onclick="openComingSoon('Tiếng Anh đầu vào')"
+    >
+      <div>
+        <div class="subject-icon">🇬🇧</div>
+        <h4>Tiếng Anh đầu vào</h4>
+        <p>
+          Đề tham khảo, ngữ pháp,
+          từ vựng và tài liệu ôn tập.
+        </p>
+      </div>
+
+      <div class="view-link">
+        Xem tài liệu →
+      </div>
+    </article>
+
+  </section>
+
+
+  <!-- PANEL -->
+
+  <section
+    id="documentsPanel"
+    class="documents-panel"
+  >
+
+    <div class="panel-header">
+
+      <h3 id="documentTitle">
+        Tài liệu
+      </h3>
+
+      <button
+        class="back-button"
+        onclick="goBack()"
       >
-      </div>
+        ← Quay lại
+      </button>
 
-    </section>
+    </div>
 
-    <!-- FOOTER -->
+    <div
+      id="documentList"
+      class="document-list"
+    ></div>
 
-    <footer>
+  </section>
 
-      <strong>
-        TÀI LIỆU FREE
-      </strong>
 
-      <br>
+  <!-- FOOTER -->
 
-      HCMUS •
-      Trường Đại học Khoa học Tự nhiên •
-      ĐHQG TP.HCM
+  <footer>
+    <strong>TÀI LIỆU FREE</strong>
+    <br>
+    HCMUS • Trường Đại học Khoa học Tự nhiên • ĐHQG TP.HCM
+  </footer>
 
-    </footer>
+</main>
 
-  </main>
 
-  <script>
+<script>
 
-    const subjects = {
+/* =====================================================
+   1. LINK SHOPEE
 
-      /* HÓA HỌC */
+   QUAN TRỌNG:
+   TỚ HIỆN CHỈ CÓ LẠI ĐƯỢC LINK SỐ 1.
+   CẬU THAY 4 DÒNG CÒN LẠI BẰNG LINK SHOPEE THẬT.
+===================================================== */
 
-      hoa: {
+const shopeeLinks = [
+  "https://s.shopee.vn/2LXOs0571K",
+  "https://s.shopee.vn/2VqpekcaTm",
+  "https://s.shopee.vn/70JF8OytVM",
+  "https://s.shopee.vn/7AcfKhyGAP",
+  "https://s.shopee.vn/6fgOjn0ABK"
+];
 
-        title:
-          "🧪 Hóa học",
 
-        documents: [
+/* =====================================================
+   2. CỨ 10 LẦN BẤM → RANDOM 1 LINK SHOPEE
+===================================================== */
 
-          {
-            name:
-              "Giáo trình Hóa đại cương 1 - Lê Thị Sở Như",
+let interactionCount =
+  Number(
+    localStorage.getItem(
+      "tailieufreeInteractionCount"
+    )
+  ) || 0;
 
-            description:
-              "Giáo trình Hóa đại cương 1",
 
-            link:
-              "https://tailieufree.github.io/giaotrinhhoadaicuong1.html"
-          },
+document.addEventListener(
+  "click",
+  function(event){
 
-          {
-            name:
-              "Bài tập Hóa đại cương 1",
+    /*
+    Không tính thao tác bấm ngay trên
+    kết quả Shopee vì web không có nút Shopee riêng.
+    Mỗi click bình thường = 1 thao tác.
+    */
 
-            description:
-              "Bài tập Hóa đại cương 1",
+    interactionCount++;
 
-            link:
-              "https://tailieufree.github.io/baitaphoadaicuong1.html"
-          },
-
-          {
-            name:
-              "Ôn thi giữa kì Hóa đại cương 1",
-
-            description:
-              "Tài liệu ôn thi giữa kì",
-
-            link:
-              "#"
-          },
-
-          {
-            name:
-              "Ôn thi cuối kì Hóa đại cương 1",
-
-            description:
-              "Tài liệu ôn thi cuối kì",
-
-            link:
-              "#"
-          }
-
-        ]
-
-      },
-
-      /* VẬT LÝ */
-
-      vatly: {
-
-        title:
-          "⚛️ Vật lý",
-
-        documents: [
-
-          {
-            name:
-              "Vật lý đại cương",
-
-            description:
-              "Giáo trình tham khảo",
-
-            link:
-              "#"
-          },
-
-          {
-            name:
-              "Bài tập Vật lý",
-
-            description:
-              "Bài tập luyện tập",
-
-            link:
-              "#"
-          },
-
-          {
-            name:
-              "Đề thi Vật lý",
-
-            description:
-              "Đề thi tham khảo",
-
-            link:
-              "#"
-          }
-
-        ]
-
-      },
-
-      /* SINH HỌC */
-
-      sinh: {
-
-        title:
-          "🧬 Sinh học",
-
-        documents: [
-
-          {
-            name:
-              "Sinh học đại cương",
-
-            description:
-              "Giáo trình",
-
-            link:
-              "#"
-          },
-
-          {
-            name:
-              "Bài giảng Sinh học",
-
-            description:
-              "Tài liệu học tập",
-
-            link:
-              "#"
-          },
-
-          {
-            name:
-              "Đề thi Sinh học",
-
-            description:
-              "Đề thi tham khảo",
-
-            link:
-              "#"
-          }
-
-        ]
-
-      },
-
-      /* TOÁN CAO CẤP */
-
-      toan: {
-
-        title:
-          "📐 Toán cao cấp",
-
-        documents: [
-
-          {
-            name:
-              "Toán cao cấp",
-
-            description:
-              "Giáo trình lý thuyết",
-
-            link:
-              "#"
-          },
-
-          {
-            name:
-              "Bài tập Toán cao cấp",
-
-            description:
-              "Bài tập luyện tập",
-
-            link:
-              "#"
-          },
-
-          {
-            name:
-              "Đề thi Toán cao cấp",
-
-            description:
-              "Đề thi tham khảo",
-
-            link:
-              "#"
-          }
-
-        ]
-
-      },
-
-      /* VI TÍCH PHÂN */
-
-      vitich: {
-
-        title:
-          "∫ Vi tích phân",
-
-        documents: [
-
-          {
-            name:
-              "Vi tích phân 1",
-
-            description:
-              "Giáo trình và bài tập",
-
-            link:
-              "#"
-          },
-
-          {
-            name:
-              "Vi tích phân 2",
-
-            description:
-              "Giáo trình và bài tập",
-
-            link:
-              "#"
-          },
-
-          {
-            name:
-              "Bài tập Vi tích phân",
-
-            description:
-              "Tài liệu luyện tập",
-
-            link:
-              "#"
-          },
-
-          {
-            name:
-              "Đề thi Vi tích phân",
-
-            description:
-              "Đề thi tham khảo",
-
-            link:
-              "#"
-          }
-
-        ]
-
-      },
-
-      /* TIẾNG ANH ĐẦU VÀO */
-
-      anh: {
-
-        title:
-          "🇬🇧 Tiếng Anh đầu vào",
-
-        documents: [
-
-          {
-            name:
-              "Đề thi Tiếng Anh đầu vào",
-
-            description:
-              "Đề thi tham khảo",
-
-            link:
-              "#"
-          },
-
-          {
-            name:
-              "Ngữ pháp ôn tập",
-
-            description:
-              "Tổng hợp ngữ pháp",
-
-            link:
-              "#"
-          },
-
-          {
-            name:
-              "Từ vựng ôn tập",
-
-            description:
-              "Tổng hợp từ vựng",
-
-            link:
-              "#"
-          },
-
-          {
-            name:
-              "Tài liệu luyện thi",
-
-            description:
-              "Tài liệu ôn Tiếng Anh đầu vào",
-
-            link:
-              "#"
-          }
-
-        ]
-
-      }
-
-    };
-
-
-    /* HIỂN THỊ TÀI LIỆU */
-
-    function showDocuments(subjectKey) {
-
-      const subject =
-        subjects[subjectKey];
-
-      const title =
-        document.getElementById("documentTitle");
-
-      const list =
-        document.getElementById("documentList");
-
-      const panel =
-        document.getElementById("documentsPanel");
-
-      title.textContent =
-        subject.title;
-
-      list.innerHTML = "";
-
-      subject.documents.forEach(
-        function(documentItem) {
-
-          const item =
-            document.createElement("div");
-
-          item.className =
-            "document-item";
-
-
-          const hasLink =
-            documentItem.link !== "#";
-
-
-          item.innerHTML = `
-
-            <div class="document-info">
-
-              <h5>
-                ${documentItem.name}
-              </h5>
-
-              <p>
-                ${documentItem.description}
-              </p>
-
-            </div>
-
-            ${
-              hasLink
-              ?
-
-              `
-              <a
-                class="document-button"
-                href="${documentItem.link}"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                XEM TÀI LIỆU
-              </a>
-              `
-
-              :
-
-              `
-              <span
-                class="document-button disabled"
-              >
-                SẮP CẬP NHẬT
-              </span>
-              `
-            }
-
-          `;
-
-          list.appendChild(item);
-
-        }
-      );
-
-      panel.classList.add("active");
-
-      setTimeout(
-        function() {
-
-          panel.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-          });
-
-        },
-        100
-      );
-
-    }
-
-
-    /* ĐÓNG DANH SÁCH */
-
-    function closeDocuments() {
-
-      const panel =
-        document.getElementById("documentsPanel");
-
-      panel.classList.remove("active");
-
-    }
-
-
-    /* TÌM KIẾM */
-
-    const searchInput =
-      document.getElementById("searchInput");
-
-    const cards =
-      document.querySelectorAll(".subject-card");
-
-    const noResult =
-      document.getElementById("noResult");
-
-
-    searchInput.addEventListener(
-      "input",
-
-      function() {
-
-        const keyword =
-          this.value
-          .toLowerCase()
-          .trim();
-
-        let visibleCount = 0;
-
-        cards.forEach(
-          function(card) {
-
-            const subjectName =
-              card.dataset.name
-              .toLowerCase();
-
-            const matched =
-              subjectName.includes(keyword);
-
-            if (matched) {
-
-              card.style.display = "flex";
-              visibleCount++;
-
-            }
-
-            else {
-
-              card.style.display = "none";
-
-            }
-
-          }
-        );
-
-        if (visibleCount === 0) {
-
-          noResult.style.display =
-            "block";
-
-        }
-
-        else {
-
-          noResult.style.display =
-            "none";
-
-        }
-
-      }
+    localStorage.setItem(
+      "tailieufreeInteractionCount",
+      interactionCount
     );
 
-  </script>
+
+    if(interactionCount >= 10){
+
+      interactionCount = 0;
+
+      localStorage.setItem(
+        "tailieufreeInteractionCount",
+        "0"
+      );
+
+
+      const validLinks =
+        shopeeLinks.filter(
+          link =>
+            link &&
+            link.startsWith("http")
+        );
+
+
+      if(validLinks.length > 0){
+
+        const randomLink =
+          validLinks[
+            Math.floor(
+              Math.random() *
+              validLinks.length
+            )
+          ];
+
+
+        /*
+        Mở tab mới.
+        Vì lệnh này chạy từ thao tác click
+        của người dùng nên trình duyệt thường
+        cho phép mở tab.
+        */
+
+        window.open(
+          randomLink,
+          "_blank",
+          "noopener,noreferrer"
+        );
+
+      }
+
+    }
+
+  },
+  true
+);
+
+
+/* =====================================================
+   3. DATA HÓA HỌC
+===================================================== */
+
+const chemistry = {
+
+  hoa1: {
+
+    title:
+      "Hóa đại cương 1",
+
+    items: [
+
+      {
+        type:"link",
+
+        icon:"📘",
+
+        name:
+          "Giáo trình Hóa đại cương 1 - Lê Thị Sở Như",
+
+        description:
+          "Giáo trình Hóa đại cương 1",
+
+        link:
+          "https://tailieufree.github.io/giaotrinhhoadaicuong1.html"
+      },
+
+
+      {
+        type:"link",
+
+        icon:"📚",
+
+        name:
+          "Bài tập Hóa đại cương 1",
+
+        description:
+          "Bài tập Hóa đại cương 1",
+
+        link:
+          "https://tailieufree.github.io/baitaphoadaicuong1.html"
+      },
+
+
+      {
+        type:"disabled",
+
+        icon:"🖥️",
+
+        name:
+          "Tổng hợp Slide bài giảng Hóa đại cương 1",
+
+        description:
+          "Slide bài giảng Hóa đại cương 1"
+      },
+
+
+      {
+        type:"menu",
+
+        icon:"📝",
+
+        name:
+          "Ôn thi giữa kì Hóa đại cương 1",
+
+        description:
+          "Đề thi giữa kì và hướng dẫn giải",
+
+        action:
+          openHoa1Midterm
+      },
+
+
+      {
+        type:"disabled",
+
+        icon:"🎓",
+
+        name:
+          "Ôn thi cuối kì Hóa đại cương 1",
+
+        description:
+          "Đề thi cuối kì và tài liệu ôn tập"
+      }
+
+    ]
+
+  }
+
+};
+
+
+/* =====================================================
+   4. LỊCH SỬ ĐIỀU HƯỚNG
+===================================================== */
+
+let historyStack = [];
+
+
+/* =====================================================
+   5. HÓA HỌC
+===================================================== */
+
+function openChemistry(push = true){
+
+  closeSearch();
+
+  if(push){
+    historyStack.push("home");
+  }
+
+
+  renderMenu(
+    "🧪 Hóa học",
+
+    [
+
+      {
+        icon:"⚗️",
+
+        name:
+          "Hóa đại cương 1",
+
+        description:
+          "Giáo trình, bài tập, slide và tài liệu ôn thi",
+
+        action:
+          openHoa1
+      },
+
+
+      {
+        icon:"🧪",
+
+        name:
+          "Hóa đại cương 2",
+
+        description:
+          "Tài liệu Hóa đại cương 2",
+
+        action:
+          () =>
+            openComingSoon(
+              "Hóa đại cương 2",
+              true,
+              "chemistry"
+            )
+      },
+
+
+      {
+        icon:"🔬",
+
+        name:
+          "Hóa đại cương 3",
+
+        description:
+          "Tài liệu Hóa đại cương 3",
+
+        action:
+          () =>
+            openComingSoon(
+              "Hóa đại cương 3",
+              true,
+              "chemistry"
+            )
+      }
+
+    ]
+  );
+
+}
+
+
+/* =====================================================
+   6. HÓA ĐẠI CƯƠNG 1
+===================================================== */
+
+function openHoa1(push = true){
+
+  closeSearch();
+
+  if(push){
+    historyStack.push("chemistry");
+  }
+
+
+  const course =
+    chemistry.hoa1;
+
+
+  const list =
+    getList();
+
+
+  getTitle().textContent =
+    "⚗️ " + course.title;
+
+
+  list.innerHTML = "";
+
+
+  course.items.forEach(item => {
+
+    const box =
+      document.createElement("div");
+
+    box.className =
+      "document-item";
+
+
+    if(item.type === "link"){
+
+      box.innerHTML = `
+
+        <div class="document-info">
+
+          <h5>
+            ${item.icon}
+            ${item.name}
+          </h5>
+
+          <p>
+            ${item.description}
+          </p>
+
+        </div>
+
+
+        <a
+          class="document-button"
+          href="${item.link}"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          XEM TÀI LIỆU
+        </a>
+
+      `;
+
+    }
+
+
+    else if(item.type === "menu"){
+
+      box.innerHTML = `
+
+        <div class="document-info">
+
+          <h5>
+            ${item.icon}
+            ${item.name}
+          </h5>
+
+          <p>
+            ${item.description}
+          </p>
+
+        </div>
+
+      `;
+
+
+      const button =
+        createButton(
+          "XEM TÀI LIỆU →",
+          item.action
+        );
+
+
+      box.appendChild(button);
+
+    }
+
+
+    else{
+
+      box.innerHTML = `
+
+        <div class="document-info">
+
+          <h5>
+            ${item.icon}
+            ${item.name}
+          </h5>
+
+          <p>
+            ${item.description}
+          </p>
+
+        </div>
+
+
+        <span
+          class="document-button disabled"
+        >
+          SẮP CẬP NHẬT
+        </span>
+
+      `;
+
+    }
+
+
+    list.appendChild(box);
+
+  });
+
+
+  showPanel();
+
+}
+
+
+/* =====================================================
+   7. ÔN THI GIỮA KÌ
+===================================================== */
+
+function openHoa1Midterm(push = true){
+
+  closeSearch();
+
+  if(push){
+    historyStack.push("hoa1");
+  }
+
+
+  const list =
+    getList();
+
+
+  getTitle().textContent =
+    "📝 Ôn thi giữa kì Hóa đại cương 1";
+
+
+  list.innerHTML = "";
+
+
+  /*
+  ĐỀ 2019 - 2020
+  */
+
+  list.appendChild(
+
+    createExamRow(
+
+      "Đề thi giữa kì Hóa đại cương 1 2019 - 2020",
+
+      "https://tailieufree.github.io/dethigiuakihoadaicuong1-2019-2020.html",
+
+      "https://tailieufree.github.io/huongdangiaidethigiuakihoadaicuong1-2019-2020.html"
+
+    )
+
+  );
+
+
+  /*
+  ĐỀ 2022 - 2023
+  */
+
+  list.appendChild(
+
+    createExamRow(
+
+      "Đề thi giữa kì Hóa đại cương 1 2022 - 2023",
+
+      "https://tailieufree.github.io/dethigiuakihoadaicuong1-2022-2023.html",
+
+      "https://tailieufree.github.io/huongdangiaidethigiuakihoadaicuong1-2022-2023.html"
+
+    )
+
+  );
+
+
+  showPanel();
+
+}
+
+
+/* =====================================================
+   8. TẠO MỘT DÒNG ĐỀ THI
+
+   MỖI ĐỀ CÓ:
+   - FILE PDF
+   - HƯỚNG DẪN GIẢI
+===================================================== */
+
+function createExamRow(
+  name,
+  pdf,
+  solution
+){
+
+  const box =
+    document.createElement("div");
+
+  box.className =
+    "document-item";
+
+
+  box.innerHTML = `
+
+    <div class="document-info">
+
+      <h5>
+        📄 ${name}
+      </h5>
+
+      <p>
+        Đề thi và hướng dẫn giải
+      </p>
+
+    </div>
+
+
+    <div class="exam-buttons">
+
+      <a
+        class="document-button"
+        href="${pdf}"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        FILE PDF
+      </a>
+
+
+      <a
+        class="document-button"
+        href="${solution}"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        HƯỚNG DẪN GIẢI
+      </a>
+
+    </div>
+
+  `;
+
+
+  return box;
+
+}
+
+
+/* =====================================================
+   9. MENU
+===================================================== */
+
+function renderMenu(
+  title,
+  items
+){
+
+  getTitle().textContent =
+    title;
+
+
+  const list =
+    getList();
+
+
+  list.innerHTML = "";
+
+
+  items.forEach(item => {
+
+    const box =
+      document.createElement("div");
+
+
+    box.className =
+      "document-item";
+
+
+    box.innerHTML = `
+
+      <div class="document-info">
+
+        <h5>
+          ${item.icon || "📚"}
+          ${item.name}
+        </h5>
+
+        <p>
+          ${item.description || ""}
+        </p>
+
+      </div>
+
+    `;
+
+
+    box.appendChild(
+
+      createButton(
+        "XEM TÀI LIỆU →",
+        item.action
+      )
+
+    );
+
+
+    list.appendChild(box);
+
+  });
+
+
+  showPanel();
+
+}
+
+
+/* =====================================================
+   10. SẮP CẬP NHẬT
+===================================================== */
+
+function openComingSoon(
+  name,
+  push = true,
+  backTo = "home"
+){
+
+  closeSearch();
+
+
+  if(push){
+    historyStack.push(backTo);
+  }
+
+
+  getTitle().textContent =
+    "📚 " + name;
+
+
+  getList().innerHTML = `
+
+    <div
+      style="
+        text-align:center;
+        padding:38px 20px;
+      "
+    >
+
+      <div
+        style="
+          font-size:42px;
+          margin-bottom:12px;
+        "
+      >
+        📚
+      </div>
+
+      <h4
+        style="
+          color:#173878;
+          font-size:19px;
+        "
+      >
+        Tài liệu đang được cập nhật
+      </h4>
+
+      <p
+        style="
+          margin-top:8px;
+          color:#6c7892;
+          line-height:1.6;
+        "
+      >
+        TÀI LIỆU FREE sẽ cập nhật
+        ${name} sau.
+      </p>
+
+    </div>
+
+  `;
+
+
+  showPanel();
+
+}
+
+
+/* =====================================================
+   11. QUAY LẠI
+===================================================== */
+
+function goBack(){
+
+  closeSearch();
+
+
+  const previous =
+    historyStack.pop();
+
+
+  if(!previous){
+
+    closePanel();
+
+    return;
+
+  }
+
+
+  if(previous === "home"){
+
+    closePanel();
+
+  }
+
+
+  else if(previous === "chemistry"){
+
+    openChemistry(false);
+
+  }
+
+
+  else if(previous === "hoa1"){
+
+    openHoa1(false);
+
+  }
+
+
+  else if(previous === "midterm"){
+
+    openHoa1Midterm(false);
+
+  }
+
+}
+
+
+/* =====================================================
+   12. SEARCH DATABASE
+
+   CÁI NÀY GIÚP TÌM ĐƯỢC CẢ CÁC MỤC NẰM SÂU BÊN TRONG
+===================================================== */
+
+const searchDatabase = [
+
+  {
+    icon:"🧪",
+    name:"Hóa học",
+    path:"HCMUS → Hóa học",
+    keywords:"hoa hoc chemistry",
+    action:openChemistry
+  },
+
+
+  {
+    icon:"⚗️",
+    name:"Hóa đại cương 1",
+    path:"Hóa học → Hóa đại cương 1",
+    keywords:"hoa dai cuong 1 hdc1",
+    action:openHoa1
+  },
+
+
+  {
+    icon:"🧪",
+    name:"Hóa đại cương 2",
+    path:"Hóa học → Hóa đại cương 2",
+    keywords:"hoa dai cuong 2 hdc2",
+    action:() =>
+      openComingSoon(
+        "Hóa đại cương 2",
+        true,
+        "chemistry"
+      )
+  },
+
+
+  {
+    icon:"🔬",
+    name:"Hóa đại cương 3",
+    path:"Hóa học → Hóa đại cương 3",
+    keywords:"hoa dai cuong 3 hdc3",
+    action:() =>
+      openComingSoon(
+        "Hóa đại cương 3",
+        true,
+        "chemistry"
+      )
+  },
+
+
+  {
+    icon:"📘",
+    name:
+      "Giáo trình Hóa đại cương 1 - Lê Thị Sở Như",
+
+    path:
+      "Hóa học → Hóa đại cương 1",
+
+    keywords:
+      "giao trinh hoa dai cuong 1 le thi so nhu",
+
+    link:
+      "https://tailieufree.github.io/giaotrinhhoadaicuong1.html"
+  },
+
+
+  {
+    icon:"📚",
+    name:
+      "Bài tập Hóa đại cương 1",
+
+    path:
+      "Hóa học → Hóa đại cương 1",
+
+    keywords:
+      "bai tap hoa dai cuong 1",
+
+    link:
+      "https://tailieufree.github.io/baitaphoadaicuong1.html"
+  },
+
+
+  {
+    icon:"🖥️",
+    name:
+      "Tổng hợp Slide bài giảng Hóa đại cương 1",
+
+    path:
+      "Hóa học → Hóa đại cương 1",
+
+    keywords:
+      "slide bai giang hoa dai cuong 1",
+
+    action:openHoa1
+  },
+
+
+  {
+    icon:"📝",
+    name:
+      "Ôn thi giữa kì Hóa đại cương 1",
+
+    path:
+      "Hóa học → Hóa đại cương 1 → Ôn giữa kì",
+
+    keywords:
+      "on thi giua ki hoa dai cuong 1 de thi",
+
+    action:openHoa1Midterm
+  },
+
+
+  {
+    icon:"🎓",
+    name:
+      "Ôn thi cuối kì Hóa đại cương 1",
+
+    path:
+      "Hóa học → Hóa đại cương 1",
+
+    keywords:
+      "on thi cuoi ki hoa dai cuong 1",
+
+    action:openHoa1
+  },
+
+
+  {
+    icon:"📄",
+    name:
+      "Đề thi giữa kì Hóa đại cương 1 2019 - 2020",
+
+    path:
+      "Hóa đại cương 1 → Ôn giữa kì",
+
+    keywords:
+      "de thi giua ki hoa dai cuong 1 2019 2020",
+
+    action:openHoa1Midterm
+  },
+
+
+  {
+    icon:"✅",
+    name:
+      "Hướng dẫn giải đề thi giữa kì Hóa đại cương 1 2019 - 2020",
+
+    path:
+      "Hóa đại cương 1 → Ôn giữa kì",
+
+    keywords:
+      "huong dan giai de thi giua ki hoa dai cuong 1 2019 2020",
+
+    link:
+      "https://tailieufree.github.io/huongdangiaidethigiuakihoadaicuong1-2019-2020.html"
+  },
+
+
+  {
+    icon:"📄",
+    name:
+      "File PDF đề thi giữa kì Hóa đại cương 1 2019 - 2020",
+
+    path:
+      "Hóa đại cương 1 → Ôn giữa kì",
+
+    keywords:
+      "pdf de thi giua ki hoa dai cuong 1 2019 2020",
+
+    link:
+      "https://tailieufree.github.io/dethigiuakihoadaicuong1-2019-2020.html"
+  },
+
+
+  {
+    icon:"📄",
+    name:
+      "Đề thi giữa kì Hóa đại cương 1 2022 - 2023",
+
+    path:
+      "Hóa đại cương 1 → Ôn giữa kì",
+
+    keywords:
+      "de thi giua ki hoa dai cuong 1 2022 2023",
+
+    action:openHoa1Midterm
+  },
+
+
+  {
+    icon:"✅",
+    name:
+      "Hướng dẫn giải đề thi giữa kì Hóa đại cương 1 2022 - 2023",
+
+    path:
+      "Hóa đại cương 1 → Ôn giữa kì",
+
+    keywords:
+      "huong dan giai de thi giua ki hoa dai cuong 1 2022 2023",
+
+    link:
+      "https://tailieufree.github.io/huongdangiaidethigiuakihoadaicuong1-2022-2023.html"
+  },
+
+
+  {
+    icon:"📄",
+    name:
+      "File PDF đề thi giữa kì Hóa đại cương 1 2022 - 2023",
+
+    path:
+      "Hóa đại cương 1 → Ôn giữa kì",
+
+    keywords:
+      "pdf de thi giua ki hoa dai cuong 1 2022 2023",
+
+    link:
+      "https://tailieufree.github.io/dethigiuakihoadaicuong1-2022-2023.html"
+  },
+
+
+  {
+    icon:"⚛️",
+    name:"Vật lý",
+    path:"HCMUS → Vật lý",
+    keywords:"vat ly physics",
+    action:() =>
+      openComingSoon(
+        "Vật lý"
+      )
+  },
+
+
+  {
+    icon:"🧬",
+    name:"Sinh học",
+    path:"HCMUS → Sinh học",
+    keywords:"sinh hoc biology",
+    action:() =>
+      openComingSoon(
+        "Sinh học"
+      )
+  },
+
+
+  {
+    icon:"📐",
+    name:"Toán cao cấp",
+    path:"HCMUS → Toán cao cấp",
+    keywords:"toan cao cap",
+    action:() =>
+      openComingSoon(
+        "Toán cao cấp"
+      )
+  },
+
+
+  {
+    icon:"∫",
+    name:"Vi tích phân",
+    path:"HCMUS → Vi tích phân",
+    keywords:"vi tich phan calculus",
+    action:() =>
+      openComingSoon(
+        "Vi tích phân"
+      )
+  },
+
+
+  {
+    icon:"🇬🇧",
+    name:"Tiếng Anh đầu vào",
+    path:"HCMUS → Tiếng Anh đầu vào",
+    keywords:"tieng anh dau vao english",
+    action:() =>
+      openComingSoon(
+        "Tiếng Anh đầu vào"
+      )
+  }
+
+];
+
+
+/* =====================================================
+   13. BỎ DẤU TIẾNG VIỆT ĐỂ SEARCH DỄ HƠN
+===================================================== */
+
+function normalizeText(text){
+
+  return text
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(
+      /[\u0300-\u036f]/g,
+      ""
+    )
+    .replace(/đ/g,"d")
+    .trim();
+
+}
+
+
+/* =====================================================
+   14. SEARCH
+===================================================== */
+
+const searchInput =
+  document.getElementById(
+    "searchInput"
+  );
+
+
+const searchResults =
+  document.getElementById(
+    "searchResults"
+  );
+
+
+searchInput.addEventListener(
+  "input",
+  function(){
+
+    const query =
+      normalizeText(
+        this.value
+      );
+
+
+    if(!query){
+
+      closeSearch();
+
+      return;
+
+    }
+
+
+    const matches =
+      searchDatabase
+      .filter(item => {
+
+        const haystack =
+          normalizeText(
+            item.name +
+            " " +
+            item.path +
+            " " +
+            (item.keywords || "")
+          );
+
+
+        return haystack.includes(
+          query
+        );
+
+      })
+      .slice(0,15);
+
+
+    searchResults.innerHTML = "";
+
+
+    if(matches.length === 0){
+
+      searchResults.innerHTML = `
+
+        <div class="search-empty">
+          Không tìm thấy tài liệu phù hợp.
+        </div>
+
+      `;
+
+      searchResults.classList.add(
+        "active"
+      );
+
+      return;
+
+    }
+
+
+    matches.forEach(item => {
+
+      const button =
+        document.createElement(
+          "button"
+        );
+
+
+      button.className =
+        "search-result";
+
+
+      button.innerHTML = `
+
+        <span class="result-icon">
+          ${item.icon}
+        </span>
+
+
+        <span class="result-text">
+
+          <strong>
+            ${item.name}
+          </strong>
+
+          <small>
+            ${item.path}
+          </small>
+
+        </span>
+
+      `;
+
+
+      button.addEventListener(
+        "click",
+        function(){
+
+          closeSearch();
+
+          searchInput.value = "";
+
+
+          /*
+          Nếu kết quả có LINK THẬT
+          thì mở thẳng tài liệu.
+          */
+
+          if(item.link){
+
+            window.open(
+              item.link,
+              "_blank",
+              "noopener,noreferrer"
+            );
+
+          }
+
+
+          /*
+          Nếu là một MENU
+          thì đưa người dùng tới menu.
+          */
+
+          else if(item.action){
+
+            historyStack = [];
+
+            item.action();
+
+          }
+
+        }
+      );
+
+
+      searchResults.appendChild(
+        button
+      );
+
+    });
+
+
+    searchResults.classList.add(
+      "active"
+    );
+
+  }
+);
+
+
+/* ESC ĐÓNG SEARCH */
+
+searchInput.addEventListener(
+  "keydown",
+  function(event){
+
+    if(event.key === "Escape"){
+
+      closeSearch();
+
+      this.blur();
+
+    }
+
+  }
+);
+
+
+/* BẤM RA NGOÀI ĐÓNG SEARCH */
+
+document.addEventListener(
+  "click",
+  function(event){
+
+    const searchArea =
+      document.querySelector(
+        ".search-area"
+      );
+
+
+    if(
+      !searchArea.contains(
+        event.target
+      )
+    ){
+
+      closeSearch();
+
+    }
+
+  }
+);
+
+
+/* =====================================================
+   15. HÀM PHỤ
+===================================================== */
+
+function closeSearch(){
+
+  searchResults.classList.remove(
+    "active"
+  );
+
+}
+
+
+function createButton(
+  text,
+  action
+){
+
+  const button =
+    document.createElement(
+      "button"
+    );
+
+
+  button.className =
+    "document-button";
+
+
+  button.textContent =
+    text;
+
+
+  button.addEventListener(
+    "click",
+    action
+  );
+
+
+  return button;
+
+}
+
+
+function getTitle(){
+
+  return document.getElementById(
+    "documentTitle"
+  );
+
+}
+
+
+function getList(){
+
+  return document.getElementById(
+    "documentList"
+  );
+
+}
+
+
+function showPanel(){
+
+  const panel =
+    document.getElementById(
+      "documentsPanel"
+    );
+
+
+  panel.classList.add(
+    "active"
+  );
+
+
+  setTimeout(
+    () => {
+
+      panel.scrollIntoView({
+        behavior:"smooth",
+        block:"start"
+      });
+
+    },
+    70
+  );
+
+}
+
+
+function closePanel(){
+
+  document
+    .getElementById(
+      "documentsPanel"
+    )
+    .classList.remove(
+      "active"
+    );
+
+
+  historyStack = [];
+
+
+  document
+    .getElementById(
+      "subjectGrid"
+    )
+    .scrollIntoView({
+      behavior:"smooth",
+      block:"start"
+    });
+
+}
+
+</script>
 
 </body>
 </html>
