@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HSK（五级）官方样卷 · CBT模拟</title>
+<style>
+:root{--bg:#eef2f6;--paper:#fff;--ink:#172033;--muted:#667085;--line:#d7dee7;--blue:#155f9b;--blue2:#0d4e82;--green:#287a4d;--red:#b42318}
+*{box-sizing:border-box} body{margin:0;background:var(--bg);font-family:"Microsoft YaHei","PingFang SC",Arial,sans-serif;color:var(--ink)}
+header{height:72px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 24px;position:sticky;top:0;z-index:10}
+.brand{display:flex;align-items:center;gap:12px} .logo{width:48px;height:48px;background:var(--blue);color:#fff;display:grid;place-items:center;border-radius:9px;font-weight:900}
+.brand small{display:block;color:var(--muted)} .timer{font-size:19px;font-weight:900;background:#f7f9fb;border:1px solid var(--line);padding:10px 14px;border-radius:8px;min-width:118px;text-align:center}
+.layout{max-width:1400px;margin:18px auto;padding:0 18px;display:grid;grid-template-columns:270px 1fr;gap:18px}
+.side,.paper{background:#fff;border:1px solid var(--line);border-radius:12px} .side{padding:15px;height:calc(100vh - 110px);position:sticky;top:90px;overflow:auto}
+.paper{padding:28px 38px;min-height:720px;display:flex;flex-direction:column}
+.tabs{display:flex;gap:6px;margin-bottom:14px} .tab{flex:1;padding:9px;border:1px solid var(--line);border-radius:8px;background:#fff;font-weight:700} .tab.active{background:#edf6fd;border-color:#9bc6e6;color:var(--blue)}
+.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px} .qbtn{height:36px;border:1px solid var(--line);background:#fff;border-radius:6px;cursor:pointer} .qbtn.done{background:#e9f6ef;border-color:#b9dec8;color:#246a42} .qbtn.cur{outline:3px solid #d1e9fb;border-color:var(--blue);font-weight:900;color:var(--blue)}
+.head{display:flex;justify-content:space-between;gap:15px;border-bottom:1px solid var(--line);padding-bottom:14px} .eyebrow{font-size:12px;color:var(--blue);font-weight:900;letter-spacing:.08em}
+h1{font-size:1.45rem;margin:5px 0} .passage{white-space:pre-wrap;line-height:1.95;background:#f8fafc;border-left:4px solid var(--blue);padding:17px 19px;margin:18px 0}
+.prompt{font-size:18px;font-weight:800;line-height:1.6;margin:18px 0} .opts{display:grid;gap:10px;max-width:900px}
+.opt{display:flex;gap:10px;border:1px solid var(--line);padding:13px 15px;border-radius:8px;cursor:pointer} .opt:hover{background:#fafcff} .opt.sel{background:#edf6fd;border-color:#86b8dd} .letter{font-weight:900;color:var(--blue);min-width:24px}
+.audioBox{background:#eef6fc;border:1px solid #c7dfee;border-radius:9px;padding:14px 16px;margin:18px 0} .audioBox button{background:var(--blue2);color:#fff;border:0;border-radius:7px;padding:10px 14px;cursor:pointer} .audioBox button:disabled{opacity:.5} .audioProgress{font-size:12px;color:var(--muted);margin-top:8px}
+.nav{margin-top:auto;padding-top:25px;display:flex;justify-content:space-between;gap:10px} button{font:inherit} .btn{border:1px solid var(--line);background:#fff;border-radius:8px;padding:10px 14px;cursor:pointer} .primary{background:var(--blue);color:#fff;border-color:var(--blue)} .danger{background:var(--red);color:#fff;border-color:var(--red)}
+.sortItems{display:grid;gap:9px;margin:18px 0} .frag{border:1px solid var(--line);border-radius:8px;padding:12px 14px;line-height:1.7} .sortSlots{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:12px 0} select{width:100%;padding:10px;border:1px solid var(--line);border-radius:7px;background:#fff}
+.writeImg{max-width:650px;width:100%;display:block;margin:16px auto;border:1px solid var(--line);border-radius:8px} textarea{width:100%;min-height:300px;border:1px solid var(--line);border-radius:9px;padding:15px;font-size:16px;line-height:1.8;resize:vertical} .counter{text-align:right;color:var(--muted);font-size:13px;margin-top:6px}
+.overlay{position:fixed;inset:0;background:rgba(15,23,42,.66);display:none;place-items:center;z-index:50;padding:20px} .overlay.show{display:grid} .modal{background:#fff;width:min(760px,100%);max-height:90vh;overflow:auto;border-radius:14px;padding:28px}
+.rules{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0} .rules div{border:1px solid var(--line);border-radius:9px;padding:12px} .small{font-size:13px;color:var(--muted)} .scoregrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0} .score{background:#f7f9fb;border-radius:9px;padding:15px;text-align:center} .score b{font-size:26px;display:block}
+@media(max-width:850px){.layout{grid-template-columns:1fr}.side{position:static;height:auto}.paper{padding:22px}.rules,.scoregrid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+<div class="brand"><div class="logo">HSK</div><div><b>HSK（五级）官方样卷 · CBT模拟</b><small>按你上传的样卷原题制作</small></div></div>
+<div style="display:flex;gap:10px;align-items:center"><div id="timer" class="timer">25:00</div><button id="finishBtn" class="btn danger">结束本部分</button></div>
+</header>
+<main class="layout">
+<aside class="side">
+<div class="tabs"><button class="tab active" data-sec="listening">听力</button><button class="tab" data-sec="reading">阅读</button><button class="tab" data-sec="writing">写作</button></div>
+<div class="small" id="progressText">0 / 72 已答</div>
+<div class="grid" id="grid" style="margin-top:12px"></div>
+<button class="btn" id="resetBtn" style="width:100%;margin-top:14px">清空进度</button>
+</aside>
+<section class="paper">
+<div class="head"><div><div class="eyebrow" id="part"></div><h1 id="title"></h1></div><div class="small" id="sectionInfo"></div></div>
+<div id="audioArea"></div>
+<div id="content"></div>
+<div class="nav"><button class="btn" id="prevBtn">← 上一题</button><button class="btn primary" id="nextBtn">下一题 →</button></div>
+</section>
+</main>
+
+<div id="startOverlay" class="overlay show"><div class="modal">
+<h2>HSK（五级）样卷 · 模拟考试</h2>
+<p>本网页使用你上传的官方样卷题目、答案和听力 MP3。听力不显示原文。</p><p class="small"><b>直接在浏览器打开即可点击、作答、播放录音、写作文。</b></p>
+<div class="rules"><div><b>听力</b><div class="small">35题 · 约25分钟</div></div><div><b>阅读</b><div class="small">35题 · 35分钟</div></div><div><b>写作</b><div class="small">2题 · 40分钟</div></div></div>
+<p class="small">原样卷另注明听力结束后有5分钟填写答题卡；本网页直接作答，所以不另加转涂时间。</p>
+<button class="btn primary" id="startBtn" style="width:100%">开始考试</button>
+</div></div>
+
+<div id="resultOverlay" class="overlay"><div class="modal"><h2>考试结果</h2><div id="resultBody"></div><div style="display:flex;justify-content:flex-end;gap:10px"><button class="btn" id="closeResult">返回</button><button class="btn primary" id="downloadBtn">下载答题记录</button></div></div></div>
+
+<audio id="officialAudio" preload="auto" src="hsk5_sample_audio.mp3"></audio>
+
+<script>
+const D={"L": {"1": ["旅游意外险", "重大疾病险", "补充养老保险", "基本医疗保险"], "2": ["现场排队购票", "自觉接受安检", "进行电话预订", "提前线上预约"], "3": ["花费更高", "讲究细节", "很难执行", "风格多样"], "4": ["国内公司的待遇", "留学生就业选择", "如何让简历更出色", "毕业生学历统计数据"], "5": ["墙面更平整", "设施更完善", "更加现代化", "居民变少了"], "6": ["上网咨询", "询问物业", "检查水管", "给邻居留言"], "7": ["味道极其苦", "需要长期食用", "属于销售手段", "容易消化吸收"], "8": ["付款方式", "当前物价", "商品运费", "交易押金"], "9": ["特色美食", "传统节日", "手工艺品", "民族服装"], "10": ["怕小狗无聊", "认为小狗可靠", "把小狗当家人", "想让婚礼有趣"], "11": ["利于表达情感", "能让人发挥想象", "是一种写作方法", "意味着大范围删改"], "12": ["色彩对比弱", "主题不够突出", "背景比较模糊", "天空所占比例大"], "13": ["及时调整好心态", "请裁判暂停比赛", "向教练请求帮助", "总结失败的经验"], "14": ["成绩下降得很快", "把李娜当作对手", "目标是保持进步", "根本不在乎结果"], "15": ["牙齿", "胳膊", "手指", "眼睛"], "16": ["需每日充电", "能语音控制", "现在正在促销", "两年内免费换新"], "17": ["了解不深", "过于乐观", "缺乏耐心", "不够敏感"], "18": ["让孩子主动提问", "单独与孩子交流", "先向同学了解情况", "鼓励父母优先参与"], "19": ["时常表扬孩子", "耐心听孩子说话", "多帮孩子做决定", "无条件信任孩子"], "20": ["路人", "记者", "列车长", "售票员"], "21": ["暴雨影响", "前方地震", "系统出现错误", "给其他车让行"], "22": ["收集种子", "回收垃圾", "感受大自然", "掌握生存技能"], "23": ["衣服要轻薄", "多采集果实", "爱护当地环境", "尽量独立行动"], "24": ["弹琴", "游玩", "写诗", "练书法"], "25": ["把书藏起来", "制定阅读规则", "固定学习时间", "让儿子大声读书"], "26": ["总是躲起来", "很信任父亲", "发起了改革", "成了文学家"], "27": ["车超速了", "是货车司机", "卖的蔬菜很新鲜", "被送往了医院治疗"], "28": ["赠送给路人", "运输到垃圾站", "按市场价购买", "送到附近菜市场"], "29": ["补交罚款", "领取车辆", "配合事故调查", "向民辅警表示感谢"], "30": ["缓解疼痛", "放松心情", "集中精力", "追求刺激"], "31": ["摄影", "运动", "吸电子烟", "吃无糖饼干"], "32": ["要下定决心", "有判断能力", "用好习惯代替", "与优秀的人相处"], "33": ["情绪变化", "身体数据", "运动安排", "饮食搭配"], "34": ["培养学术思维", "使研究娱乐化", "能发现生活的美好", "提高解决问题的效率"], "35": ["无奈", "称赞", "怀疑", "不在乎"]}, "cloze": [{"range": "36–38", "passage": "四岁的文文跟妈妈去看望外公，文文骄傲地说：“外公，我在幼儿园能自己穿衣服，不需要老师帮忙了。”外公听了高兴地称赞道：“外孙女真 36 ，外公必须得奖励你。”于是，他包了一个红包给文文。文文把红包 37 给了妈妈，说：“请把我的工资收好。”妈妈笑问：“你才四岁，又不上班， 38 ？”文文委屈地说：“我怎么没有上班？我不是正在幼儿园上小班吗？”", "qs": {"36": ["不要紧", "了不起", "受不了", "开玩笑"], "37": ["递", "拆", "赔", "派"], "38": ["一旦下了班", "哪儿有奖金", "居然都有工资了", "每个月的收入都要给我"]}}, {"range": "39–41", "passage": "《考工记》是中国到目前为止发现的年代最早的一部手工技术与工艺典籍。全书7000多字，篇幅并不长，39 。该书记载了木工、金工、皮革、染色、刮磨、陶瓷等六大类三十个工种的内容，40 了当时中国所达到的科技及工艺水平。此外，书中还总结了数学、力学、声学、地理学、建筑学等多方面的知识和经验。《考工记》在中国科技史、工艺美术史和文化史上都占有重要 41 。", "qs": {"39": ["却有很多错字", "让人不能理解", "但内容相当丰富", "读起来有很大负担"], "40": ["创造", "反映", "建设", "表达"], "41": ["成就", "样式", "业务", "地位"]}}, {"range": "42–45", "passage": "近年来，中国电动自行车年销量超过三千万辆，社会现有电动自行车数量接近三亿辆，相当于几乎每个家庭都有一辆电动自行车。为什么人们对电动自行车这么“情有独钟”？\n\n首先是方便。42 ，电动自行车在启动和停车时花费的时间最少。随着智能化程度的加深，电动自行车甚至不再需要使用钥匙，直接用手机开锁就行，再加上占地 43 小，车主也不再为找车位而发愁。\n\n其次是用途 44 。电动自行车的使用体验好，适用于多种日常生活场景：上下班、接送孩子、外出买菜……也不用考取驾照，上了年纪的人也可以驾驶，能 45 多方面需求。", "qs": {"42": ["也有人反对", "不用担心堵车", "比起其他交通工具", "电动自行车快速发展"], "43": ["场所", "面积", "地区", "地面"], "44": ["实用", "高档", "有利", "广泛"], "45": ["满足", "实施", "组合", "达成"]}}], "sortGroups": [{"ids": [46, 47, 48, 49, 50], "items": {"A": "请同学们务必在两轮选课期间办理选课、退课，超时将不能办理，如对平台操作有疑问，请联系教务处。", "B": "此计划中明确写出了毕业所需达到的学分要求，是选课的重要参考依据。", "C": "我校2024～2025学年第二学期第一轮选课将于2025年1月1日12:00开始，至2025年1月8日12:00结束。选课前请各位同学提前查看本专业教学计划。", "D": "1月8日选课结束后，课程未达到开班人数的会停开，选修停开课程的同学及还未选课的同学，可于1月10日至13日参加第二轮选课。", "E": "在了解教学计划规定的要求后，同学们可以在选课期间根据自己的时间、兴趣及专业要求进入“本科教学管理与服务”平台进行选课。"}}, {"ids": [51, 52, 53, 54, 55], "items": {"A": "一天，王勃像平常一样去找这位朋友，可是一进门，却见到朋友沉默地坐在椅子上，一副难过的样子。", "B": "这首诗的第三句非常经典：海内存知己，天涯若比邻，意思是：只要是知心的朋友，即使距离再远，也感觉像在身边一样。这句诗流传千年，至今仍然被人们用来表达友情。", "C": "王勃是中国古代的著名文学家。他在长安时，交到了一位姓杜的朋友。两人关系密切，经常一起游玩、写诗。", "D": "日子过得很快，转眼朋友就要离开长安了。两人告别前，王勃回忆起和朋友相处时的种种趣事，心中十分不舍。于是，他为朋友写了一首送别诗，名为《送杜少府之任蜀州》。", "E": "王勃连忙询问朋友发生了什么事，朋友告诉他：自己被朝廷派去蜀州做官，再过几天就要出发了。蜀州偏远，他并不想去那儿，因此心情很糟糕。王勃听到这个消息，也感到非常难过。"}}], "longReads": [{"ids": [56, 57, 58], "passage": "38岁的孙凯从事理发行业已经二十年，如今在繁华的王府井地区经营着一家高端理发店。他一直热心志愿服务，常上门为行动不便的老人免费理发。\n\n为了方便上门服务，他把行李箱改成了简单的“移动理发店”——里面不仅有各种理发工具和理发镜，理发镜旁边还安装了音箱。孙凯希望音乐可以给顾客带来些许乐趣。为了帮助更多老人，他组织成立了“梵珀匠人志愿服务队”，四年来，这支志愿服务队已累计为五百多位老人义务理发。\n\n孙凯对自己的工作和志愿服务事业有着自己的想法。“我希望做一名‘有爱又有才’的理发师。”孙凯说，“‘爱’是指志愿服务，‘才’是指技能进步。”他说，做好服务只靠爱心是不够的，过硬的技术才是服务的基础。他打算平时再多下点儿功夫，提升技术水平，把志愿服务长久地做下去。", "qs": {"56": ["孙凯为什么要在理发镜旁边安装音箱？", ["给顾客提供乐趣", "提醒等候的顾客", "吸引路过的行人", "便于和老人沟通"]], "57": ["根据最后一段，孙凯口中的“有爱”是指：", ["说话幽默", "做志愿服务", "充分尊重顾客", "视团队成员如同亲人"]], "58": ["未来，孙凯将会怎么做？", ["调低理发费用", "提升理发技能", "开理发培训班", "增加服务项目"]]}}, {"ids": [59, 60, 61, 62], "passage": "浙江大学工程学院院史馆内，一幅标题为“发动机剖视”的教学挂图引起了众多参观者关注。画中发动机的内部结构、材料特征等，几乎和真的一样，甚至还带着几分“动感”。\n\n这幅挂图是由浙江大学工程学院教师施岳定创作的。在20世纪80年代初，施岳定就开始在教学中运用自己的挂图了。\n\n施岳定在长期教学实践中发现，由于缺乏直接观察的经验，学生们常常难以理解复杂机器的工作原理、结构间的安装关系。“比如每次讲到汽车、内燃机等复杂结构的时候，我们没法儿把汽车开进教室，又不能拆开设备，给学生看里面的详细结构。”而国内当时教材中的教学挂图又不能清楚明确地表现复杂机器的结构，于是施岳定产生了一个想法——把这些复杂机器结构用立体画的方式展示出来。\n\n那幅《发动机剖视》图，施岳定画了整整三个月。凭借对教育事业的热爱，他白天上课、搞科研，晚上集中精力画图。施岳定陆续画了百余幅这样的课堂挂图，其中许多图片成为了教材插图，帮助了许多学生。正因如此，他被称为中国教育界的“工程画第一人”。", "qs": {"59": ["根据第一段，那幅教学挂图：", ["画得准确形象", "在校图书馆展出", "由教授们集体创作", "采用了3D打印技术"]], "60": ["第三段主要讲的是：", ["内燃机的内部结构", "制作手工挂图的原因", "工程专业学生的课程安排", "施岳定画教学挂图的原因"]], "61": ["上文主要体现出施岳定是一个怎样的人？", ["热爱教育", "热情活泼", "善良勇敢", "珍惜人才"]], "62": ["根据上文，可以知道什么？", ["学校奖励了施岳定", "工程画逐渐流行起来", "施岳定的画在教材中出现", "施岳定很在乎同事的评价"]]}}, {"ids": [63, 64, 65, 66], "passage": "1991年，桑国亚只身一人来到中国留学。随着在中国的时间越来越长，桑国亚对茶的兴趣越来越浓，认识也越来越深刻。他说，中国的茶文化总让他感觉“学而知不足”。\n\n为了进一步增进了解，桑国亚开始正式学习茶艺，他走遍了中国各地茶园，“在福建，每天晚饭后在家中泡上一壶铁观音，成为当地家庭生活的一部分；在广州，茶楼里的茶艺师傅摆弄着各式各样的茶具，表演着精彩的工夫茶；在成都，朋友邀请我去茶馆品尝竹叶青，让我第一次看到茶叶直直地立在水中。”桑国亚说，这些经历不仅让他收获了与茶相关的知识，还认识了很多热情好客的中国朋友。\n\n如今，对茶的热爱让桑国亚开始向更多的人分享中国茶文化。他回国后在学校里教茶文化课，在他的课堂上，有人对茶的种类、饮茶方法等感兴趣；有人则因喝茶有益健康而渴望了解茶。\n\n桑国亚发现，陷入烦恼时，泡一杯茶细细品味能让人忘记那些令人头疼的问题。“需要提神选绿茶，需要暖胃选红茶。”桑国亚希望通过自己的努力，把茶的趣味分享给更多的人。", "qs": {"63": ["第一段中“学而知不足”的意思最可能是：", ["茶文化内容深厚", "茶文化有不足之处", "茶文化普及度不高", "很欣赏现在的茶文化"]], "64": ["桑国亚是如何学习茶艺的？", ["向名师请教", "参观制茶工厂", "浏览茶艺视频", "接触各地茶园"]], "65": ["桑国亚为了分享中国茶文化做了什么？", ["举办茶文化节", "组织茶艺表演", "研制茶叶新品种", "担任茶文化课程老师"]], "66": ["根据上文，下列哪项正确？", ["福建人习惯饭前泡茶", "适当喝红茶可以提神", "喝茶让桑国亚忘记烦恼", "竹叶青是广州特有茶叶"]]}}, {"ids": [67, 68, 69, 70], "passage": "红山森林动物园位于江苏省南京市，跟中国其他动物园不同，这家动物园不依靠政府，完全独立经营，所以动物园的经营状况对其生存发展至关重要。为了增加收入，红山森林动物园设有动物认养活动，支付一定的养护费用后，人们可以认领自己喜欢的动物。\n\n目前有线下认养和“云认养”两种方式。线下认养早在2001年就已经开展，线下认养人每年可以进入场馆深度体验一次，可以帮忙打扫卫生，了解饲养员日常如何照顾动物，还可以参加“动物馆奇妙夜”等科普教育活动。随着线上认养需求的增加，2021年动物园开通了“云认养”方式，主要针对无法到场馆实地参观的游客。线上认养人可以通过每月一次的点对点直播，观看到自己认养的小动物。这样，在给予大家精神陪伴的同时，动物园也拓宽了经济来源，可以说是双赢。\n\n据工作人员介绍，目前已有一百五十只左右的动物被认养，对园区来说，这不仅改善了园区的经济状况，更重要的是加强了动物园和公众之间的联结，通过这种深度的体验方式让更多人关注、支持野生动物保护。", "qs": {"67": ["线下认养人：", ["每年都会捐钱", "要学会训练动物", "有进馆体验的机会", "可以自由出入动物园"]], "68": ["关于“云认养”模式，可以知道：", ["已在全国推广", "限制认养数量", "必须签订协议书", "能通过直播观看动物"]], "69": ["动物认养有什么意义？", ["增强青少年责任感", "防止动物受到伤害", "有效禁止违法动物买卖", "让人们更加关注野生动物"]], "70": ["下列哪项最适合做上文题目？", ["认养动物需谨慎", "动物认养实现共赢", "野生动物园的魅力", "动物直播成新趋势"]]}}], "answerKey": {"1": "B", "2": "D", "3": "A", "4": "B", "5": "C", "6": "B", "7": "C", "8": "A", "9": "D", "10": "C", "11": "B", "12": "B", "13": "A", "14": "C", "15": "D", "16": "C", "17": "A", "18": "D", "19": "B", "20": "C", "21": "A", "22": "C", "23": "C", "24": "B", "25": "A", "26": "D", "27": "D", "28": "C", "29": "D", "30": "B", "31": "D", "32": "C", "33": "A", "34": "A", "35": "B", "36": "B", "37": "A", "38": "C", "39": "C", "40": "B", "41": "D", "42": "C", "43": "B", "44": "D", "45": "A", "46": "C", "47": "B", "48": "E", "49": "D", "50": "A", "51": "C", "52": "A", "53": "E", "54": "D", "55": "B", "56": "A", "57": "B", "58": "B", "59": "A", "60": "D", "61": "A", "62": "C", "63": "A", "64": "D", "65": "D", "66": "C", "67": "C", "68": "D", "69": "D", "70": "B"}};
+const STORY="hsk5_q71.png";
+const KEY="hsk5_official_sample_cbt_v1";
+const DUR={listening:25*60,reading:35*60,writing:40*60};
+const RANGE={listening:[1,35],reading:[36,70],writing:[71,72]};
+let state=JSON.parse(localStorage.getItem(KEY)||"null")||{section:"listening",current:1,answers:{},writing:{71:"",72:""},seconds:DUR.listening,started:false,audioStarted:false};
+let tick=null;
+const $=s=>document.querySelector(s);
+function save(){localStorage.setItem(KEY,JSON.stringify(state))}
+function fmt(s){s=Math.max(0,s);return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0")}
+function countHan(s){return (s.match(/[\u3400-\u9fff]/g)||[]).length}
+function answered(id){if(id<=70)return !!state.answers[id];return (state.writing[id]||"").trim().length>0}
+function sectionFor(id){return id<=35?"listening":id<=70?"reading":"writing"}
+function startTimer(){clearInterval(tick);tick=setInterval(()=>{state.seconds--;$("#timer").textContent=fmt(state.seconds);if(state.seconds%5===0)save();if(state.seconds<=0)advanceSection(true)},1000)}
+function setSection(sec){state.section=sec;state.current=RANGE[sec][0];state.seconds=DUR[sec];save();render();startTimer()}
+function advanceSection(auto=false){
+  const order=["listening","reading","writing"],i=order.indexOf(state.section);
+  if(i===2){showResult(true);return}
+  if(state.section==="listening"){$("#officialAudio").pause()}
+  setSection(order[i+1]);
+  if(auto) alert("本部分时间到，已进入下一部分。");
+}
+function renderGrid(){
+  const [a,b]=RANGE[state.section];$("#grid").innerHTML="";
+  for(let i=a;i<=b;i++){let x=document.createElement("button");x.className="qbtn"+(answered(i)?" done":"")+(i===state.current?" cur":"");x.textContent=i;x.onclick=()=>{state.current=i;save();render()};$("#grid").appendChild(x)}
+  const total=Object.keys(state.answers).length + [71,72].filter(i=>answered(i)).length;
+  $("#progressText").textContent=`${total} / 72 已答`;
+  document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("active",t.dataset.sec===state.section));
+}
+function choose(id,letter){
+  state.answers[id]=letter;save();render();
+}
+function optionsHtml(id,opts){
+  return `<div class="opts">${opts.map((t,i)=>{let l=String.fromCharCode(65+i);return `<div class="opt ${state.answers[id]===l?"sel":""}" onclick="choose(${id},'${l}')"><span class="letter">${l}.</span><span>${t}</span></div>`}).join("")}</div>`;
+}
+function renderListening(id){
+  $("#part").textContent=id<=19?"听力 · 第一部分":"听力 · 第二部分";
+  $("#title").textContent=`第 ${id} 题`;
+  $("#sectionInfo").textContent="听录音，选择正确答案";
+  $("#content").innerHTML=optionsHtml(id,D.L[id]);
+  const a=$("#officialAudio");
+  $("#audioArea").innerHTML=`<div class="audioBox"><button id="audioBtn">${state.audioStarted?"听力录音已开始":"开始播放官方听力录音"}</button><div class="audioProgress" id="aprog">整段官方MP3 · 不显示原文 · 开始后不允许拖动</div></div>`;
+  const btn=$("#audioBtn");btn.disabled=state.audioStarted;
+  btn.onclick=async()=>{try{a.currentTime=0;await a.play();state.audioStarted=true;save();btn.disabled=true;btn.textContent="听力录音已开始";}catch(e){alert("浏览器阻止了播放，请再点一次。")}};
+}
+function findCloze(id){for(const g of D.cloze)if(g.qs[id])return g}
+function renderReading(id){
+  $("#audioArea").innerHTML="";
+  if(id<=45){
+    const g=findCloze(id);$("#part").textContent="阅读 · 第一部分";$("#title").textContent=`第 ${id} 题`;
+    $("#sectionInfo").textContent="请选择正确答案";
+    $("#content").innerHTML=`<div class="passage">${g.passage}</div><div class="prompt">第 ${id} 题</div>${optionsHtml(id,g.qs[id])}`;
+    return;
+  }
+  if(id<=55){
+    const g=id<=50?D.sortGroups[0]:D.sortGroups[1];
+    $("#part").textContent="阅读 · 第二部分";$("#title").textContent=`第 ${g.ids[0]}～${g.ids[g.ids.length-1]} 题 · 段落排序`;
+    $("#sectionInfo").textContent="为五个位置选择 A–E";
+    let used={};g.ids.forEach(x=>{if(state.answers[x])used[state.answers[x]]=x});
+    const items=Object.entries(g.items).map(([k,v])=>`<div class="frag"><b>${k}</b>　${v}</div>`).join("");
+    const slots=g.ids.map(pos=>`<div><div class="small" style="text-align:center;margin-bottom:5px">${pos}</div><select onchange="setSort(${pos},this.value)"><option value="">—</option>${["A","B","C","D","E"].map(l=>`<option value="${l}" ${state.answers[pos]===l?"selected":""}>${l}</option>`).join("")}</select></div>`).join("");
+    $("#content").innerHTML=`<div class="sortItems">${items}</div><div class="sortSlots">${slots}</div>`;
+    return;
+  }
+  let g=D.longReads.find(x=>x.ids.includes(id)),q=g.qs[id];
+  $("#part").textContent="阅读 · 第三部分";$("#title").textContent=`第 ${id} 题`;$("#sectionInfo").textContent="阅读短文并选择正确答案";
+  $("#content").innerHTML=`<div class="passage">${g.passage}</div><div class="prompt">${q[0]}</div>${optionsHtml(id,q[1])}`;
+}
+function setSort(pos,val){if(val)state.answers[pos]=val;else delete state.answers[pos];save();renderGrid()}
+function renderWriting(id){
+  $("#audioArea").innerHTML="";$("#part").textContent=id===71?"写作 · 第71题":"写作 · 第72题";$("#title").textContent=id===71?"看图写作":"话题作文";
+  $("#sectionInfo").textContent=id===71?"不少于100字":"不少于200字";
+  if(id===71){
+    $("#content").innerHTML=`<div class="prompt">请根据下面四张图，写一篇不少于100字的作文，写出发生在李明和伙伴们身上的故事。</div><img class="writeImg" src="${STORY}" alt="第71题四幅图"><textarea id="w" placeholder="请在这里输入作文……">${state.writing[71]||""}</textarea><div class="counter" id="counter"></div>`;
+  } else {
+    $("#content").innerHTML=`<div class="passage">尝试可能会成功，也可能会失败，但不去试一试就永远不会成功。请写一篇不少于200字的作文，分享你曾经做过的一次尝试，以及你尝试后的感受。</div><textarea id="w" placeholder="请在这里输入作文……">${state.writing[72]||""}</textarea><div class="counter" id="counter"></div>`;
+  }
+  const w=$("#w"),c=$("#counter");const upd=()=>{state.writing[id]=w.value;c.textContent=`当前字数：${countHan(w.value)}`;save();renderGrid()};w.oninput=upd;upd();
+}
+function render(){
+  $("#timer").textContent=fmt(state.seconds);renderGrid();
+  const id=state.current;if(id<=35)renderListening(id);else if(id<=70)renderReading(id);else renderWriting(id);
+}
+function showResult(auto=false){
+  clearInterval(tick);$("#officialAudio").pause();
+  let l=0,r=0;for(let i=1;i<=35;i++)if(state.answers[i]===D.answerKey[i])l++;for(let i=36;i<=70;i++)if(state.answers[i]===D.answerKey[i])r++;
+  $("#resultBody").innerHTML=`${auto?'<p><b>时间到，系统已自动交卷。</b></p>':""}<div class="scoregrid"><div class="score"><b>${l}/35</b><span>听力</span></div><div class="score"><b>${r}/35</b><span>阅读</span></div><div class="score"><b>71: ${countHan(state.writing[71]||"")}字<br>72: ${countHan(state.writing[72]||"")}字</b><span>写作需人工评分</span></div></div><p class="small">答案来自你上传的《HSK（五级）样卷答案》。</p>`;
+  $("#resultOverlay").classList.add("show");
+}
+function downloadResult(){
+  const out={exam:"HSK（五级）官方样卷 CBT",date:new Date().toISOString(),objectiveAnswers:state.answers,writing:state.writing};
+  const b=new Blob([JSON.stringify(out,null,2)],{type:"application/json;charset=utf-8"});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="HSK5_Official_Sample_Result.json";a.click();URL.revokeObjectURL(a.href);
+}
+$("#startBtn").onclick=()=>{state.started=true;$("#startOverlay").classList.remove("show");save();render();startTimer()};
+$("#finishBtn").onclick=()=>{if(state.section==="writing"){if(confirm("确定交卷吗？"))showResult(false)}else if(confirm("确定结束本部分并进入下一部分吗？"))advanceSection(false)};
+$("#prevBtn").onclick=()=>{let [a,b]=RANGE[state.section];if(state.current>a){state.current--;save();render()}};
+$("#nextBtn").onclick=()=>{let [a,b]=RANGE[state.section];if(state.current<b){state.current++;save();render()}};
+$("#closeResult").onclick=()=>$("#resultOverlay").classList.remove("show");
+$("#downloadBtn").onclick=downloadResult;
+$("#resetBtn").onclick=()=>{if(confirm("清空所有本地进度？")){localStorage.removeItem(KEY);location.reload()}};
+document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>{if(t.dataset.sec===state.section)return;alert("模拟考试中请按 听力 → 阅读 → 写作 顺序完成。")});
+
+// Prevent seeking once official listening starts
+const aud=$("#officialAudio");aud.addEventListener("seeking",()=>{if(state.audioStarted&&aud.currentTime<1) return; if(state.audioStarted){const lock=aud.dataset.lock?Number(aud.dataset.lock):aud.currentTime; if(Math.abs(aud.currentTime-lock)>1.2)aud.currentTime=lock;}});aud.addEventListener("timeupdate",()=>{aud.dataset.lock=aud.currentTime});
+if(state.started){$("#startOverlay").classList.remove("show");render();startTimer();} else render();
+</script>
+</body>
+</html>
